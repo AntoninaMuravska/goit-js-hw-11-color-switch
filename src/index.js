@@ -15,11 +15,11 @@ const refs = {
     bodyRef: document.querySelector('body'),
 }
 
-let intervalId = null;
+let intervalId;
 let isActive = false;
 
 refs.startBtn.addEventListener('click', startChangeColor);
-refs.stoptBtn.addEventListener('click', stopChangeColor);
+refs.stopBtn.addEventListener('click', stopChangeColor);
 
 // Для генерации случайного числа (индекс элемента массива цветов), используй функцию randomIntegerFromInterval.
  const randomIntegerFromInterval = (min, max) => {
