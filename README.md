@@ -1,101 +1,58 @@
-# Webpack starter kit &middot; [![Build Status](https://img.shields.io/travis/npm/npm/latest.svg?style=flat-square)](https://travis-ci.org/npm/npm) [![npm](https://img.shields.io/npm/v/npm.svg?style=flat-square)](https://www.npmjs.com/package/npm) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
+# Parcel boilerplate
 
-## Developing
+## Скрытые файлы
 
-### Prerequisites
+Включите отображение скрытых файлов и папок в проводнике своей операционной системы, иначе вы не
+сможете выбрать и скопировать себе файлы настроек проекта, имена которых начинаются с точки.
 
-Для корректной работы SASS-компилятора и других инструментов, необходимо один
-раз глобально поставить дополнительные пакеты, выполнив в терминале следующие
-команды. Пользователям MacOS ничего делать не нужно.
+## Зависимости
 
-Пользователям **Windows**, в режиме администратора.
-[Как запусттить Powershell](https://youtu.be/p2tFnxcymwk) в режиме
-администратора.
+На компьютере должена быть установлена LTS-версия [Node.js](https://nodejs.org/en/) со всеми
+дополнительными инструментами кроме **Chocolatey** - его ставить не нужно.
 
-```shell
-npm install --global --production windows-build-tools
-```
+## Перед началом работы
 
-Вот как выглядит процесс успешной установки для пользователей **Windows**.
-
-![Установка windows-build-tools](https://user-images.githubusercontent.com/1426799/45007904-bde9f280-afb4-11e8-8a35-c77dffaffa2a.gif)
-
-Пользователям **Linux**.
+Один раз на проект установить все зависимости.
 
 ```shell
-sudo apt-get install gcc g++ make
+npm ci
 ```
 
-### Setting up Dev
+### Разработка
 
-Для быстрого старта необходимо склонировать репозиторий.
+Запустить режим разработки.
 
 ```shell
-git clone https://github.com/luxplanjay/webpack-starter-kit.git
+npm run dev
 ```
 
-Переименовать папку сборки именем вашего проекта.
+Во вкладке браузера перейти по адресу [http://localhost:1234](http://localhost:1234).
 
-```shell
-mv webpack-starter-kit имя_проекта
-```
+### Деплой
 
-Затем перейти в папку проекта.
-
-```shell
-cd имя_проекта
-```
-
-Находясь в папке проекта удалить папку `.git` связанную с репозиторием сборки
-выполнив следующую команду.
-
-```shell
-npx rimraf .git
-```
-
-Установить все зависимости.
-
-```shell
-npm install
-```
-
-И запустить режим разработки.
-
-```shell
-npm start
-```
-
-Во вкладке браузера перейти по адресу
-[http://localhost:4040](http://localhost:4040).
-
-### Building
-
-Для того чтобы создать оптимизированные файлы для хостинга, необходимо выполнить
-следующую команду. В корне проекта появится папка `build` со всеми
-оптимизированными ресурсами.
-
-```shell
-npm run build
-```
-
-### Deploying/Publishing
-
-Сборка может автоматически деплоить билд на GitHub Pages удаленного (remote)
-репозитория. Для этого необходимо в файле `package.json` отредактировать поле
-`homepage`, заменив имя пользователя и репозитория на свои.
+Сборка будет автоматически собирать и деплоить продакшен версию проекта на GitHub Pages, в ветку
+`gh-pages`, каждый раз когда обновляется ветка `main`. Например, после прямого пуша или принятого
+пул-реквеста. Для этого необходимо в файле `package.json` отредактировать поле `homepage` и скрипт
+`build`, заменив `имя_пользователя` и `имя_репозитория` на свои.
 
 ```json
-"homepage": "https://имя_пользователя.github.io/имя_репозитория"
+"homepage": "https://имя_пользователя.github.io/имя_репозитория",
+"scripts": {
+  "build": "parcel build src/*.html --public-url /имя_репозитория/"
+},
 ```
 
-После чего в терминале выполнить следующую команду.
+На всякий случай стоит зайти в настройки репозитория `Settings` > `Pages` и убедиться что продакшен
+версии файлов раздаются из папки `/root` ветки `gh-pages`.
 
-```shell
-npm run deploy
-```
+Через какое-то время живую страницу можно будет посмотреть по адресу указанному в отредактированном
+свойстве `homepage`, например
+[https://goitacademy.github.io/parcel-project-template](https://goitacademy.github.io/parcel-project-template).
 
-Если нет ошибок в коде и свойство `homepage` указано верно, запустится сборка
-проекта в продакшен, после чего содержимое папки `build` будет помещено в ветку
-`gh-pages` на удаленном (remote) репозитории. Через какое-то время живую
-страницу можно будет посмотреть по адресу указанному в отредактированном
-свойстве `homepage`.
+## Файлы и папки
+
+- Все паршалы файлов стилей должны лежать в папке `src/sass` и импортироваться в
+  `src/sass/main.scss`
+- Изображения добавляйте в папку `src/images`, заранее оптимизировав их. Сборщик просто копирует
+  используемые изображения чтобы не нагружать систему оптимизацией картинок, так как на слабых
+  компьютерах это может занять много времени.
